@@ -7,7 +7,6 @@ import java.util.concurrent.BlockingQueue;
 public class gra{
     static  int wymiar=30;
     static BlockingQueue<Punkt_z_wartoscia> results = new ArrayBlockingQueue<>(wymiar *wymiar );
-//    Random random=new Random();
     private int plansza[]=new int[wymiar*wymiar];
     private int glebokosc_minimax=3;
     static char moj_znak='x';
