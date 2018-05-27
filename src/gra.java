@@ -148,7 +148,7 @@ public class gra{
                             return -2147483647;
                         }
                         else if (il_moich==5){
-                            miara+=40;
+                            miara+=60;
                         }
                     }
                     else if(plansza_teraz[i*wymiar+j]==' '&&czy_bylo_puste&&(il_moich>1||il_przeciwnika>1)){
@@ -167,7 +167,7 @@ public class gra{
                                     miara+=4;
                                 }
                                 else if (il_moich==4){
-                                    miara+=10;
+                                    miara+=60;
                                 }
                             }
                             else {
@@ -175,10 +175,10 @@ public class gra{
                                     miara+=1;
                                 }
                                 else if(il_moich==3){
-                                    miara+=4;
+                                    miara+=5;
                                 }
                                 else if (il_moich==4){
-                                    miara+=6;
+                                    miara+=40;
                                 }
                             }
                         }
@@ -188,18 +188,21 @@ public class gra{
                                     miara-=2;
                                 }
                                 else if(il_przeciwnika==3){
-                                    miara-=10;
+                                    miara-=30;
                                 }
-                                else if (il_przeciwnika>=4){
-                                    return -214748364;
+                                else if (il_przeciwnika==4){
+                                    return -21474836;
                                 }
                             }
                             else {
                                 if(il_przeciwnika==2){
                                     miara-=2;
                                 }
-                                else if(il_przeciwnika==3||il_przeciwnika==4){
-                                    return -214748364;
+                                else if(il_przeciwnika==3){
+                                    miara-=20;
+                                }
+                                else if(il_przeciwnika==4){
+                                    return -21474836;
                                 }
                             }
                         }
@@ -304,7 +307,7 @@ public class gra{
             }
             int il_moich=0;
             int jii=0,i_0=0,j_0=0;
-            if(sprawdz_czy_nie_wygralem(kolkoikrzyzyk, il_moich, jii, i_0, j_0)){
+            if(sprawdz_czy_nie_wygralem(kolkoikrzyzyk)){
                 kolkoikrzyzyk.wyswietl();
                 System.out.println("wygralem uchachacha");
                 return;
@@ -312,7 +315,8 @@ public class gra{
         }
     }
 
-    private static boolean sprawdz_czy_nie_wygralem(gra kolkoikrzyzyk, int il_moich, int jii, int i_0, int j_0) {
+    private static boolean sprawdz_czy_nie_wygralem(gra kolkoikrzyzyk) {
+        int i_0,j_0,il_moich=0;
         for (int przejscie=0;przejscie<6;przejscie++){
             switch (przejscie){
                 case 0:i_0=0;j_0=0;break;
@@ -321,6 +325,7 @@ public class gra{
                 case 3:i_0=0;j_0=0;break;
                 case 4:i_0=0;j_0=0;break;
                 case 5:i_0=wymiar-1;j_0=0;break;
+                default:i_0=0;j_0=0;
             }
             boolean r=true;
             while (i_0<wymiar&&j_0<wymiar&&i_0>=0&&j_0>=0){
