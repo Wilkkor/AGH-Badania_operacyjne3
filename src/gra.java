@@ -9,7 +9,7 @@ public class gra{
     static BlockingQueue<Punkt_z_wartoscia> results = new ArrayBlockingQueue<>(wymiar *wymiar );
 
     private int plansza[]=new int[wymiar*wymiar];
-    private int glebokosc_minimax=3;
+    private int glebokosc_minimax=2;
     static char moj_znak='x';
     static char znak_przeciwnika='o';
 
@@ -143,7 +143,15 @@ public class gra{
 //                    else if (il_moich==5){
 //                        miara+=60;
 //                    }
-                    if(plansza_teraz[i*wymiar+j]==' '&&czy_bylo_puste&&(il_moich>1||il_przeciwnika>1)){
+                    if(plansza_teraz[i*wymiar+j]==' '&&!czy_bylo_puste&&(il_moich>1||il_przeciwnika>1)) {
+                        if(il_przeciwnika==5){
+                            return -2147483647;
+                        }
+                        else if (il_moich==5){
+                            miara+=40;
+                        }
+                    }
+                    else if(plansza_teraz[i*wymiar+j]==' '&&czy_bylo_puste&&(il_moich>1||il_przeciwnika>1)){
                         if(il_przeciwnika==5){
                             return -2147483647;
                         }
@@ -159,7 +167,7 @@ public class gra{
                                     miara+=4;
                                 }
                                 else if (il_moich==4){
-                                    miara+=5;
+                                    miara+=10;
                                 }
                             }
                             else {
@@ -167,10 +175,10 @@ public class gra{
                                     miara+=1;
                                 }
                                 else if(il_moich==3){
-                                    miara+=2;
+                                    miara+=4;
                                 }
                                 else if (il_moich==4){
-                                    miara+=4;
+                                    miara+=6;
                                 }
                             }
                         }
@@ -180,18 +188,18 @@ public class gra{
                                     miara-=2;
                                 }
                                 else if(il_przeciwnika==3){
-                                    miara-=6;
-                                }
-                                else if (il_przeciwnika==4){
                                     miara-=10;
+                                }
+                                else if (il_przeciwnika>=4){
+                                    return -214748364;
                                 }
                             }
                             else {
                                 if(il_przeciwnika==2){
                                     miara-=2;
                                 }
-                                if(il_przeciwnika>=3){
-                                    miara-=40;
+                                else if(il_przeciwnika==3||il_przeciwnika==4){
+                                    return -214748364;
                                 }
                             }
                         }
