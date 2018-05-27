@@ -7,6 +7,7 @@ import java.util.concurrent.BlockingQueue;
 public class gra{
     static  int wymiar=30;
     static BlockingQueue<Punkt_z_wartoscia> results = new ArrayBlockingQueue<>(wymiar *wymiar );
+
     private int plansza[]=new int[wymiar*wymiar];
     private int glebokosc_minimax=3;
     static char moj_znak='x';
@@ -77,7 +78,7 @@ public class gra{
         }
     }
 
-    private void decyzja() throws InterruptedException {
+    private int decyzja() throws InterruptedException {
         boolean r;
         List <MinMax> threads=new ArrayList<MinMax>();
         //Punkt punkt=new Punkt();
@@ -113,37 +114,8 @@ public class gra{
         }
         System.out.printf("Postawilem na %d %d \n",max_z_wartoscia.x,max_z_wartoscia.y);
         plansza[max_z_wartoscia.x*wymiar+max_z_wartoscia.y]=moj_znak;
+        return max_z_wartoscia.wartosc;
     }
-
-//
-//    int minimax(int [] plansza_teraz,int glebokosc,boolean czy_moj_ruch){
-//        if(glebokosc>0){
-//            int maxlubmin=czy_moj_ruch?-2147483648:2147483647,wartosc;
-//            int []plansza_kopia;
-//            boolean r;
-//            for (int i=0;i<wymiar;i++){
-//                for (int j=0;j<wymiar;j++){
-//                    r=false;
-//                    r = sprawdz_otoczenie(plansza_teraz,r, i, j);
-//                    if(r){
-//                        plansza_kopia=plansza_teraz.clone();
-//                        plansza_kopia[i*wymiar+j]=czy_moj_ruch?moj_znak:znak_przeciwnika;
-//                        wartosc=minimax(plansza_kopia,glebokosc-1,!czy_moj_ruch);// start wątków
-//                        if(czy_moj_ruch&&wartosc>maxlubmin){
-//                            maxlubmin=wartosc;
-//                        }
-//                        if (!czy_moj_ruch&&wartosc<maxlubmin){
-//                            maxlubmin=wartosc;
-//                        }
-//                    }
-//                }
-//            }
-//            return maxlubmin;
-//        }
-//        else{
-//            return ocen_planszę(plansza_teraz,czy_moj_ruch);
-//        }
-//    }
 
     private static int ocen_planszę(int [] plansza_teraz,boolean czy_moj_ruch) {
         int miara=0;
@@ -260,132 +232,7 @@ public class gra{
                 czy_bylo_puste=false;
             }
         }
-//        while(jii<2){
-//            int j=j_0;
-//            int i=i_0;
-//            int ktora_opcja=0;
-//
-//            while(ktora_opcja<3){
-//                if(il_przeciwnika==5){
-//                    return -2147483647;
-//                }
-//                else if (il_moich==5){
-//                    miara+=20;
-//                }
-//                else if(plansza_teraz[i*wymiar+j]==' '&&czy_bylo_puste&&(il_moich>1||il_przeciwnika>1)){
-//                    if(il_moich>0){
-//                        if(czy_moj_ruch){
-//                            if(il_moich==2){
-//                                miara+=2;
-//                            }
-//                            else if(il_moich==3){
-//                                miara+=10;
-//                            }
-//                        }
-//                        else {
-//                            if(il_moich==2){
-//                                miara+=1;
-//                            }
-//                            else if(il_moich==3){
-//                                miara+=7;
-//                            }
-//                        }
-//                    }
-//                    else {
-//                        if(czy_moj_ruch){
-//                            if(il_przeciwnika==2){
-//                                miara-=2;
-//                            }
-//                            else if(il_przeciwnika==3){
-//                                miara-=20;
-//                            }
-//                            else if (il_przeciwnika>3){
-//                                return -2147483647;
-//                            }
-//                        }
-//                        else {
-//                            if(il_przeciwnika==2){
-//                                miara-=5;
-//                            }
-//                            if(il_przeciwnika>=3){
-//                                return -2147483647;
-//                            }
-//                        }
-//                    }
-//                    il_moich=0;
-//                    il_przeciwnika=0;
-//                    czy_bylo_puste=true;
-//                }
-//                else if(plansza_teraz[i*wymiar+j]==moj_znak&&il_przeciwnika>0){
-//                    czy_bylo_puste=false;
-//                    il_przeciwnika=0;
-//                    il_moich++;
-//                }
-//                else if(plansza_teraz[i*wymiar+j]==znak_przeciwnika&&il_moich>0){
-//                    czy_bylo_puste=false;
-//                    il_moich=0;
-//                    il_przeciwnika++;
-//                }
-//                else if(plansza_teraz[i*wymiar+j]==' '){
-//                    czy_bylo_puste=true;
-//                    il_moich=0;
-//                    il_przeciwnika=0;
-//                }
-//                else if(plansza_teraz[i*wymiar+j]==znak_przeciwnika)il_przeciwnika++;
-//                else if(plansza_teraz[i*wymiar+j]==moj_znak)il_moich++;
-//                switch (ktora_opcja){
-//                    case 0:{
-//                        if(jii==0){
-//                            j++;
-//                        }
-//                        else {
-//                            i++;
-//                        }
-//                        break;
-//                    }
-//                    case 1:{
-//                        j++;
-//                        i++;
-//                        break;
-//                    }
-//                    case 2:{
-//                        if(jii==0){
-//                            j++;
-//                            i--;
-//                        }
-//                        else{
-//                            j--;
-//                            i++;
-//                        }
-//                        break;
-//                    }
-//                }
-//                if(i==wymiar||j==wymiar||i==-1||j==-1){
-//                    ktora_opcja++;
-//                    i=i_0;j=j_0;
-//                    il_moich=0;
-//                    il_przeciwnika=0;
-//                    czy_bylo_puste=false;
-//                }
-//            }
-//            if(jii==0){
-//                if(i_0<wymiar-1){
-//                    i_0++;
-//                }else {
-//                    i_0=0;
-//                    jii++;
-//                }
-//            }
-//            else if(jii==1){
-//                if(j_0<wymiar-1){
-//                    j_0++;
-//                }
-//                else {
-//                    j_0=0;
-//                    jii++;
-//                }
-//            }
-//        }
+
         return miara;
     }
 
@@ -405,7 +252,6 @@ public class gra{
         }
         return r;
     }
-
 
     public static void main(String[] args) throws InterruptedException {
         int x,y;
@@ -430,7 +276,10 @@ public class gra{
                 return;
             }
             //kolkoikrzyzyk.wyswietl();
-            kolkoikrzyzyk.decyzja();
+            if(kolkoikrzyzyk.decyzja()==-2147483647){
+                System.out.println("Ech, wygrales, musiałem coś przeoczyć, ale następnym razem cię ogram !!!");
+                return;
+            }
             int il_moich=0;
             int jii=0,i_0=0,j_0=0;
             if(sprawdz_czy_nie_wygralem(kolkoikrzyzyk, il_moich, jii, i_0, j_0)){
@@ -442,65 +291,43 @@ public class gra{
     }
 
     private static boolean sprawdz_czy_nie_wygralem(gra kolkoikrzyzyk, int il_moich, int jii, int i_0, int j_0) {
-        while(jii<2){
-            int j=j_0;
-            int i=i_0;
-            int ktora_opcja=0;
-            while(ktora_opcja<3){
-                if (il_moich==5){
-                    return true;
-                }
-                else if(kolkoikrzyzyk.plansza[i*wymiar+j]!=moj_znak)il_moich=0;
-                else if(kolkoikrzyzyk.plansza[i*wymiar+j]==moj_znak)il_moich++;
-                switch (ktora_opcja){
-                    case 0:{
-                        if(jii==0){
-                            j++;
-                        }
-                        else {
-                            i++;
-                        }
-                        break;
-                    }
-                    case 1:{
-                        j++;
-                        i++;
-                        break;
-                    }
-                    case 2:{
-                        if(jii==0){
-                            j++;
-                            i--;
-                        }
-                        else{
-                            j--;
-                            i++;
-                        }
-                        break;
-                    }
-                }
-                if(i==wymiar||j==wymiar||i==-1||j==-1){
-                    ktora_opcja++;
-                    i=i_0;j=j_0;
-                    il_moich=0;
-                }
+        for (int przejscie=0;przejscie<6;przejscie++){
+            switch (przejscie){
+                case 0:i_0=0;j_0=0;break;
+                case 1:i_0=0;j_0=0;break;
+                case 2:i_0=0;j_0=0;break;
+                case 3:i_0=0;j_0=0;break;
+                case 4:i_0=0;j_0=0;break;
+                case 5:i_0=wymiar-1;j_0=0;break;
             }
-            if(jii==0){
-                if(i_0<wymiar-1){
-                    i_0++;
-                }else {
-                    i_0=0;
-                    jii++;
+            boolean r=true;
+            while (i_0<wymiar&&j_0<wymiar&&i_0>=0&&j_0>=0){
+                int i=i_0;
+                int j=j_0;
+                while(i<wymiar&&j<wymiar&&i>=0&&j>=0){
+                    if (il_moich==5){
+                        return true;
+                    }
+                    else if(kolkoikrzyzyk.plansza[i*wymiar+j]==znak_przeciwnika)il_moich=0;
+                    else if(kolkoikrzyzyk.plansza[i*wymiar+j]==moj_znak)il_moich++;
+                    switch (przejscie){
+                        case 0:i++;break;
+                        case 1:j++;break;
+                        case 2:i++;j++;break;
+                        case 3:i++;j++;break;
+                        case 4:i--;j++;break;
+                        case 5:i--;j++;break;
+                    }
                 }
-            }
-            else if(jii==1){
-                if(j_0<wymiar-1){
-                    j_0++;
+                switch (przejscie){
+                    case 0:j_0++;break;
+                    case 1:i_0++;break;
+                    case 2:j_0++;break;
+                    case 3:i_0++;break;
+                    case 4:i_0++;break;
+                    case 5:j_0++;break;
                 }
-                else {
-                    j_0=0;
-                    jii++;
-                }
+                il_moich=0;
             }
         }
         return false;
