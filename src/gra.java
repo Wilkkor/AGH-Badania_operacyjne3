@@ -137,13 +137,19 @@ public class gra{
                 int i=i_0;
                 int j=j_0;
                 while(i<wymiar&&j<wymiar&&i>=0&&j>=0){
-                    if(il_przeciwnika==5){
-                        return -2147483647;
-                    }
-                    else if (il_moich==5){
-                        miara+=20;
-                    }
-                    else if(plansza_teraz[i*wymiar+j]==' '&&czy_bylo_puste&&(il_moich>1||il_przeciwnika>1)){
+//                    if(il_przeciwnika==5){
+//                        return -2147483647;
+//                    }
+//                    else if (il_moich==5){
+//                        miara+=60;
+//                    }
+                    if(plansza_teraz[i*wymiar+j]==' '&&czy_bylo_puste&&(il_moich>1||il_przeciwnika>1)){
+                        if(il_przeciwnika==5){
+                            return -2147483647;
+                        }
+                        else if (il_moich==5){
+                            miara+=60;
+                        }
                         if(il_moich>0){
                             if(czy_moj_ruch){
                                 if(il_moich==2){
@@ -152,8 +158,8 @@ public class gra{
                                 else if(il_moich==3){
                                     miara+=4;
                                 }
-                                else if (il_moich>3){
-                                    miara+=10;
+                                else if (il_moich==4){
+                                    miara+=5;
                                 }
                             }
                             else {
@@ -163,8 +169,8 @@ public class gra{
                                 else if(il_moich==3){
                                     miara+=2;
                                 }
-                                else if (il_moich>3){
-                                    miara+=5;
+                                else if (il_moich==4){
+                                    miara+=4;
                                 }
                             }
                         }
@@ -174,18 +180,18 @@ public class gra{
                                     miara-=2;
                                 }
                                 else if(il_przeciwnika==3){
-                                    miara-=20;
+                                    miara-=6;
                                 }
-                                else if (il_przeciwnika>3){
-                                    return -2147483647;
+                                else if (il_przeciwnika==4){
+                                    miara-=10;
                                 }
                             }
                             else {
                                 if(il_przeciwnika==2){
-                                    miara-=5;
+                                    miara-=2;
                                 }
                                 if(il_przeciwnika>=3){
-                                    return -2147483647;
+                                    miara-=40;
                                 }
                             }
                         }
@@ -194,11 +200,17 @@ public class gra{
                         czy_bylo_puste=true;
                     }
                     else if(plansza_teraz[i*wymiar+j]==moj_znak&&il_przeciwnika>0){
+                        if(il_przeciwnika==5){
+                            return -2147483647;
+                        }
                         czy_bylo_puste=false;
                         il_przeciwnika=0;
                         il_moich++;
                     }
                     else if(plansza_teraz[i*wymiar+j]==znak_przeciwnika&&il_moich>0){
+                        if (il_moich==5){
+                            miara+=60;
+                        }
                         czy_bylo_puste=false;
                         il_moich=0;
                         il_przeciwnika++;
@@ -307,10 +319,12 @@ public class gra{
                 int i=i_0;
                 int j=j_0;
                 while(i<wymiar&&j<wymiar&&i>=0&&j>=0){
-                    if (il_moich==5){
-                        return true;
+                    if(kolkoikrzyzyk.plansza[i*wymiar+j]==' '&&il_moich>1){
+                        if(il_moich==5)
+                            return true;
+                        il_moich=0;
                     }
-                    else if(kolkoikrzyzyk.plansza[i*wymiar+j]==znak_przeciwnika)il_moich=0;
+                    else if(kolkoikrzyzyk.plansza[i*wymiar+j]==znak_przeciwnika){if(il_moich==5){return true;}il_moich=0;}
                     else if(kolkoikrzyzyk.plansza[i*wymiar+j]==moj_znak)il_moich++;
                     switch (przejscie){
                         case 0:i++;break;
