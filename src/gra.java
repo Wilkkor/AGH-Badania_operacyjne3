@@ -275,8 +275,10 @@ public class gra{
                 System.out.println("wygrales");
                 return;
             }
+            kolkoikrzyzyk.wyswietl();
             //kolkoikrzyzyk.wyswietl();
             if(kolkoikrzyzyk.decyzja()==-2147483647){
+                kolkoikrzyzyk.wyswietl();
                 System.out.println("Ech, wygrales, musiałem coś przeoczyć, ale następnym razem cię ogram !!!");
                 return;
             }
